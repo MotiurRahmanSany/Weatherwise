@@ -69,7 +69,7 @@ class WeatherController extends GetxController {
         _longitude.value = value.longitude;
 
         return FetchWeatherData()
-            .processData(value.latitude, value.longitude)
+            .fetchWeatherData(value.latitude, value.longitude)
             .then(
           (value) {
             weatherData.value = value;
