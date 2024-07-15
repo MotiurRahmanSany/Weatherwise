@@ -3,28 +3,33 @@ import 'package:weatherwise/models/daily_weather.dart';
 import 'package:weatherwise/models/hourly_weather.dart';
 
 class WeatherData {
-  double? lat;
-  double? lon;
-  String? timezone;
-  int? timezoneOffset;
+  // double? lat;
+  // double? lon;
+  // String? timezone;
+  // int? timezoneOffset;
   Current? current;
   List<Hourly>? hourly;
   List<Daily>? daily;
 
+  getCurrent() => current!;
+  getHourly() => hourly!;
+  getDaily() => daily!;
+
   WeatherData(
-      {this.lat,
-      this.lon,
-      this.timezone,
-      this.timezoneOffset,
+      {
+      // this.lat,
+      // this.lon,
+      // this.timezone,
+      // this.timezoneOffset,
       this.current,
       this.hourly,
       this.daily});
 
   WeatherData.fromJson(Map<String, dynamic> json) {
-    lat = json['lat'];
-    lon = json['lon'];
-    timezone = json['timezone'];
-    timezoneOffset = json['timezone_offset'];
+    // lat = json['lat'];
+    // lon = json['lon'];
+    // timezone = json['timezone'];
+    // timezoneOffset = json['timezone_offset'];
     current =
         json['current'] != null ? Current.fromJson(json['current']) : null;
     if (json['hourly'] != null) {
@@ -43,10 +48,10 @@ class WeatherData {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['lat'] = lat;
-    data['lon'] = lon;
-    data['timezone'] = timezone;
-    data['timezone_offset'] = timezoneOffset;
+    // data['lat'] = lat;
+    // data['lon'] = lon;
+    // data['timezone'] = timezone;
+    // data['timezone_offset'] = timezoneOffset;
     if (current != null) {
       data['current'] = current!.toJson();
     }
@@ -59,4 +64,3 @@ class WeatherData {
     return data;
   }
 }
-

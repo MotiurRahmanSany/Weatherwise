@@ -1,79 +1,75 @@
 class Current {
-  int? dt;
-  int? sunrise;
-  int? sunset;
-  double? temp;
+  // int? dt;
+  // int? sunrise;
+  // int? sunset;
+  int? temp;
   double? feelsLike;
-  int? pressure;
+  // int? pressure;
   int? humidity;
-  double? dewPoint;
-  int? uvi;
+  // double? dewPoint;
+  double? uvi;
   int? clouds;
-  int? visibility;
+  // int? visibility;
   double? windSpeed;
-  int? windDeg;
-  double? windGust;
+  // int? windDeg;
+  // double? windGust;
   List<Weather>? weather;
 
-  Current(
-      {this.dt,
-      this.sunrise,
-      this.sunset,
-      this.temp,
-      this.feelsLike,
-      this.pressure,
-      this.humidity,
-      this.dewPoint,
-      this.uvi,
-      this.clouds,
-      this.visibility,
-      this.windSpeed,
-      this.windDeg,
-      this.windGust,
-      this.weather});
+  Current({
+    //   this.dt,
+    // this.sunrise,
+    // this.sunset,
+    this.temp,
+    this.feelsLike,
+    // this.pressure,
+    this.humidity,
+    // this.dewPoint,
+    this.uvi,
+    this.clouds,
+    // this.visibility,
+    this.windSpeed,
+    // this.windDeg,
+    // this.windGust,
+    this.weather,
+  });
 
   Current.fromJson(Map<String, dynamic> json) {
-    dt = json['dt'];
-    sunrise = json['sunrise'];
-    sunset = json['sunset'];
-    temp = json['temp'];
-    feelsLike = json['feels_like'];
-    pressure = json['pressure'];
-    humidity = json['humidity'];
-    dewPoint = json['dew_point'];
-    uvi = json['uvi'];
-    clouds = json['clouds'];
-    visibility = json['visibility'];
-    windSpeed = json['wind_speed'];
-    windDeg = json['wind_deg'];
-    windGust = json['wind_gust'];
-    if (json['weather'] != null) {
-      weather = <Weather>[];
-      json['weather'].forEach((v) {
-        weather!.add(Weather.fromJson(v));
-      });
-    }
+    // dt = json['dt'];
+    // sunrise = json['sunrise'];
+    // sunset = json['sunset'];
+    temp = (json['temp'] as num?)?.round();
+    feelsLike = (json['feels_like'] as num?)?.toDouble();
+    // pressure = json['pressure'];
+    humidity = json['humidity'] as int?;
+    // dewPoint = json['dew_point'];
+    uvi = (json['uvi'] as num?)?.toDouble();
+    clouds = json['clouds'] as int?;
+    // visibility = json['visibility'];
+    windSpeed = (json['wind_speed'] as num?)?.toDouble();
+    // windDeg = json['wind_deg'];
+    // windGust = json['wind_gust'];
+    weather = (json['weather'] as List<dynamic>?)
+        ?.map((e) => Weather.fromJson(e as Map<String, dynamic>))
+        .toList();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['dt'] = dt;
-    data['sunrise'] = sunrise;
-    data['sunset'] = sunset;
+    // data['dt'] = dt;
+    // data['sunrise'] = sunrise;
+    // data['sunset'] = sunset;
     data['temp'] = temp;
     data['feels_like'] = feelsLike;
-    data['pressure'] = pressure;
+    // data['pressure'] = pressure;
     data['humidity'] = humidity;
-    data['dew_point'] = dewPoint;
+    // data['dew_point'] = dewPoint;
     data['uvi'] = uvi;
     data['clouds'] = clouds;
-    data['visibility'] = visibility;
+    // data['visibility'] = visibility;
     data['wind_speed'] = windSpeed;
-    data['wind_deg'] = windDeg;
-    data['wind_gust'] = windGust;
-    if (weather != null) {
-      data['weather'] = weather!.map((v) => v.toJson()).toList();
-    }
+    // data['wind_deg'] = windDeg;
+    // data['wind_gust'] = windGust;
+    data['weather'] = weather?.map((e) => e.toJson()).toList();
     return data;
   }
 }
@@ -87,10 +83,10 @@ class Weather {
   Weather({this.id, this.main, this.description, this.icon});
 
   Weather.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    main = json['main'];
-    description = json['description'];
-    icon = json['icon'];
+    id = json['id'] as int?;
+    main = json['main'] as String?;
+    description = json['description'] as String?;
+    icon = json['icon'] as String?;
   }
 
   Map<String, dynamic> toJson() {
@@ -102,4 +98,3 @@ class Weather {
     return data;
   }
 }
-

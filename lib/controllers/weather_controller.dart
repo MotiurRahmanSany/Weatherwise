@@ -1,19 +1,23 @@
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:weatherwise/api/fetch_weather.dart';
+import 'package:weatherwise/models/weather_model.dart';
 
 class WeatherController extends GetxController {
   final RxBool _isLoading = true.obs;
   final RxDouble _latitude = 0.0.obs;
   final RxDouble _longitude = 0.0.obs;
-  RxInt getIndex = 0.obs;
+  final RxInt _cardIndex = 0.obs;
 
   RxBool checkLoading() => _isLoading;
   RxDouble getLatitude() => _latitude;
   RxDouble getLongitude() => _longitude;
 
+  final weatherData = WeatherData().obs;
+
   @override
   void onInit() {
-    if(_isLoading.isTrue) {
+    if (_isLoading.isTrue) {
       getLocation();
     }
     super.onInit();
@@ -57,10 +61,25 @@ class WeatherController extends GetxController {
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((value){
-      _latitude.value = value.latitude;
-      _longitude.value = value.longitude;
-      _isLoading.value = false;
-    });
+    return await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.high)
+        .then(
+      (value) {
+        _latitude.value = value.latitude;
+        _longitude.value = value.longitude;
+
+        return FetchWeatherData()
+            .processData(value.latitude, value.longitude)
+            .then(
+          (value) {
+            weatherData.value = value;
+            _isLoading.value = false;
+          },
+        );
+      },
+    );
   }
+
+  RxInt getCurrentCardIndex() => _cardIndex;
+
 }
