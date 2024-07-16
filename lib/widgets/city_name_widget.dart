@@ -4,14 +4,14 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:weatherwise/controllers/weather_controller.dart';
 
-class HeaderWidget extends StatefulWidget {
-  const HeaderWidget({super.key});
+class CityNameWidget extends StatefulWidget {
+  const CityNameWidget({super.key});
 
   @override
-  State<HeaderWidget> createState() => _HeaderWidgetState();
+  State<CityNameWidget> createState() => _CityNameWidgetState();
 }
 
-class _HeaderWidgetState extends State<HeaderWidget> {
+class _CityNameWidgetState extends State<CityNameWidget> {
   String city = '';
   final date = DateFormat('yMMMMd').format(DateTime.now());
   final weatherController = Get.put(WeatherController());

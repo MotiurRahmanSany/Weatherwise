@@ -81,5 +81,4 @@ class WeatherController extends GetxController {
   }
 
   RxInt getCurrentCardIndex() => _cardIndex;
-
 }
